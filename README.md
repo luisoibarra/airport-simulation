@@ -72,4 +72,4 @@ Se puede observar una tendencia lineal al aumento de tiempo libre en las pistas.
 
 Esta tendencia se podría explicar mediante el proceso de selección de la pista de aterrizaje, ya que se tiene una predisposición de elegir las primeras. Esto implica que las primeras pistas se verán más utilizadas que las últimas.
 
-El tiempo libre promedio de las pistas se encuentra según las simulaciones es de 3572 minutos.
+El tiempo libre promedio de las pistas según las simulaciones es de 3572 minutos.
