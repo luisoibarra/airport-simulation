@@ -2,4 +2,10 @@
 
 - Luis Ernesto Ibarra Vázquez C411
 
-## Aeropuerto de Barajas
+## Ejercicio
+
+5 - Aeropuerto de Barajas
+
+## Correr simulación
+
+Correr en consola `main.py`.
