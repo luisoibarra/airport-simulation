@@ -1,8 +1,12 @@
-# Proyecto de Simulación de eventos discretos
+# Simulación de Eventos Discretos
 
 - Luis Ernesto Ibarra Vázquez C411
 
 [Proyecto de github](https://github.com/luisoibarra/airport-simulation)
+
+## Resumen
+
+Se presenta un problema de simulación a ser resuelto. Para resolverlo se creó un modelo básico abstracto sobre el cual se realizó la implementación concreta final. Se sacaron conclusiones de acuerdo a las simulaciones corridas y el objetivo del problema.
 
 ## Aeropuerto de Barajas
 
@@ -28,6 +32,14 @@ Primero que todo se creó una clase **Event** que simboliza un evento a ocurrir.
 Para el manejo de eventos se creó la clase **EventHandler**. El manejo de eventos se realizará usando el patrón visitor al llamar con el tipo del evento el método `handle` correspondiente. Esto permite tener controlado, separado y organizado las reacciones a los diferentes eventos que pueden ser muchos. Además permite devolver de manera sencilla el estado que se quiera enseñar por cada reacción a los eventos.
 
 Para completar se creó la clase **Simulation**. Esta clase en primer lugar contiene la infomación del tiempo actual de la simulación además un heap en el cual se van añadiendo los eventos, ordenados por el *timestamp*, y posee un **EventHandler** para la reacción a estos. Presenta una manera sencilla de correr la simulación y mostrar el estado de esta en cada paso al iterar sobre este.
+
+### Enfoque Agente
+
+En un enfoque desde el punto de vista de la teoría de agentes cada clase tiene su representanción en esta. Un medio ambiente se define como una tupla que contiene un conjunto de estados, un estado inicial y una función de transición que toma un estado y una acción y devuelve un conjunto de estados. En este modelo se visualiza el conjunto de estados de manera implícita reflejado en la información disponible en la clase **Simulation** y sus hijos. El conjunto de acciones del agente sí se modela explícitamente al crear subclases de **Event**. Estas sublcases se usarían en la función de transición expresada en el **EventHandler** y sus hijos. En el proceso de evaluar la función de transición el medio ambiente es accesible de forma global en el **EventHandler** y por lo tanto cuando reacciona a un **Event** es posible que lo modifique de acuerdo a la lógica del problema, creando así un nuevo estado. El estado inicial es simplemente elegido al principio de la simulación al crear la instancia de la clase **Simulation**.
+
+En cuanto a los agentes esta arquitectura presenta un alto grado de reactividad al ser posible la percepción del ambiente y responder a los cambios que ocurren en este. La sociabilidad puede ser lograda si se modifica la clase **Simulation** para permitir la inclusión de múltiples **EventHandler**s que simulen los diferentes agentes. La proactividad se podría ejecutar también aprovechando la reactividad del sistema al programar **Event**s para ser lanzados en un tiempo específico.
+
+Esta arquitectura propone una gran flexibilidad a la hora de modelar el medio ambiente y agentes siendo capaz de modelar estos de tal forma que puedan ser clasificados con la mayoría de las características posibles. Aunque por ser muy abstracta requiere de un trabajo mayor a la hora de implementación.
 
 ## Modelo
 
@@ -66,7 +78,7 @@ En la simulación se consideró:
 
 En la imagen anterior se observa el tiempo libre, en función del tiempo, de las diferenetes pistas en 1000 simulaciones, con la media de estas al final. Se observa la línea discontinua que marca el final de la llegada de los aviones.
 
-Se puede observar una tendencia lineal al aumento de tiempo libre en las pistas. En dependencia de las pistas la pendiente varía ligeramente siendo en las primeras más pequeñas y con una tendencia al aumento a medida que se aumenta el número de la pista. Tambien aumenta la varianza de la pendiente a medida que se aumenta el número de la pista. Esto se observa en la siguiente figura
+Se puede observar una tendencia lineal al aumento de tiempo libre en las pistas. En dependencia de las pistas la pendiente varía ligeramente siendo en las primeras más pequeñas y con una tendencia al aumento a medida que se aumenta el número de la pista. Tambien aumenta la desviación estándar de la pendiente a medida que se aumenta el número de la pista. Esto se observa en la siguiente figura
 
 ![images/media_std_1000.png](images/media_std_1000.png)
 
