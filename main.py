@@ -1,4 +1,5 @@
 from typing import List
+import random as r
 from airport_sim.entities import Airplane
 from airport_sim.events import AirplaneArrival
 from airport_sim.simulation import AirportSimulation
@@ -25,13 +26,13 @@ airplane_break_probability = lambda: U(0,1)() < break_probability
 airplane_repair = Exp(lambda_convertor(15))
 airplane_fueling = Exp(lambda_convertor(30))
 
-def simulate_concurrent(n, threads=10):
-    # pool = ThreadPoolExecutor(threads)
-    pool = ProcessPoolExecutor(threads)
+def simulate_concurrent(n, threads=10, random_track_assignment=False):
+    pool = ThreadPoolExecutor(threads)
+    # pool = ProcessPoolExecutor(threads)
     with pool:
         futures: List[Future] = []
         for _ in range(threads):
-            fut = pool.submit(simulate, n//threads)
+            fut = pool.submit(simulate, n//threads, random_track_assignment=random_track_assignment)
             futures.append(fut)
         
         wait(futures, return_when='ALL_COMPLETED')
@@ -42,9 +43,13 @@ def simulate_concurrent(n, threads=10):
         
         return output
 
-def simulate(n: int, verbose=False):
+def simulate(n: int, verbose=False, random_track_assignment=False):
+    
+    track_assigment_function = lambda x: x[0] if not random_track_assignment else r.choice(x)
+    
     process = AirportSimulation(track_amount,
                             max_time, # One week in minutes
+                            track_assigment_function,
                             lambda: AirplaneArrival(airplane_arrival(), Airplane(0)),
                             airplane_arrival, 
                             airplane_landing, 
@@ -162,5 +167,9 @@ def plot_info(simulation_info, max_time):
 r.seed(0) # Consistency in results
 
 sim_info = simulate_concurrent(1000)
+
+plot_info(sim_info, max_time)
+
+sim_info = simulate_concurrent(1000, random_track_assignment=True)
 
 plot_info(sim_info, max_time)

@@ -13,6 +13,7 @@ class AirportSimulation(Simulation):
     
     def __init__(self, landing_tracks: int,
                 max_time: float,
+                track_assignment_function: Callable[[List[Track]], Track], 
                 first_event_function: Callable[[], AirplaneArrival], 
                 airplane_arrival_function: Callable[[], float],
                 airplane_landing_function: Callable[[], float],
@@ -23,6 +24,7 @@ class AirportSimulation(Simulation):
                 airplane_break_delay_function: Callable[[], float],
                 airplane_fueling_function: Callable[[], float]) -> None:
         
+        self.track_assignment_function = track_assignment_function
         self.airplane_arrival_function = airplane_arrival_function
         self.airplane_landing_function = airplane_landing_function
         self.airplane_departure_function = airplane_departure_function
@@ -94,7 +96,7 @@ class AirportEventHandler(EventHandler):
         
         not_busy = [x for x in self.airport.tracks if not x.busy]
         if not_busy: # Track available
-            track = not_busy[0]
+            track = self.airport.track_assignment_function(not_busy)
             self.add_landed_event(event.airplane, event.timestamp, track)
         else: # All tracks busy
             self.airport.airplane_queue.append(event.airplane)

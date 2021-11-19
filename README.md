@@ -84,14 +84,23 @@ En la simulación se consideró:
 
 ## Resultados de la simulación
 
-![images/sim_1000.png](images/sim_1000.png)
+![images/sim_1000_first.png](images/sim_1000_first.png)
 
 En la imagen anterior se observa el tiempo libre, en función del tiempo, de las diferenetes pistas en 1000 simulaciones, con la media de estas al final. Se observa la línea discontinua que marca el final de la llegada de los aviones.
 
 Se puede observar una tendencia lineal al aumento de tiempo libre en las pistas. En dependencia de las pistas la pendiente varía ligeramente siendo en las primeras más pequeñas y con una tendencia al aumento a medida que se aumenta el número de la pista. Tambien aumenta la desviación estándar de la pendiente a medida que se aumenta el número de la pista. Esto se observa en la siguiente figura
 
-![images/media_std_1000.png](images/media_std_1000.png)
+![images/media_std_1000_first.png](images/media_std_1000_first.png)
 
 Esta tendencia se podría explicar mediante el proceso de selección de la pista de aterrizaje, ya que se tiene una predisposición de elegir las primeras. Esto implica que las primeras pistas se verán más utilizadas que las últimas.
 
-El tiempo libre promedio de las pistas según las simulaciones es de 3572 minutos.
+El tiempo libre promedio de las pistas según las simulaciones es de 4150 minutos.
+
+
+Para comprobar la afirmación anterior se realizó una simulación en la que se asignan de manera aleatoria los aviones a las pistas disponibles. Los resultados concluyeron que el tiempo de espera de las pistas, su media y varianza se volvieron casi iguales comprobando así la afirmación.
+
+![images/sim_1000_rand.png](images/sim_1000_rand.png)
+
+![images/media_std_1000_rand.png](images/media_std_1000_rand.png)
+
+El tiempo libre promedio de las pistas según las simulaciones es de 3951 minutos.
