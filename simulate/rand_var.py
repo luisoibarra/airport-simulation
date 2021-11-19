@@ -18,8 +18,8 @@ def Poisson(lambd):
             t *= u() 
             i += 1
         return i-1
-    return lambda: poisson()
+    return poisson
 
 def Normal(mu, sigma):
-    return lambda: r.normalvariate(mu, sigma)
-
+    u = U(0,1)
+    return lambda: mu + sigma*m.sqrt(-2*m.log(u()))*m.cos(2*m.pi*u())

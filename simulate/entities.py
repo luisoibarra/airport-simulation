@@ -1,4 +1,4 @@
-from typing import Callable, List
+from typing import Callable, List, Optional, Union
 from .heap import Heap
 import simulate.visitor as visitor
 
@@ -7,24 +7,24 @@ class Event:
         self.timestamp = timestamp
         
     def __lt__(self, obj) -> bool:
-        return comparer(self, obj, lambda x,y: x < y)
+        return _event_comparer(self, obj, lambda x,y: x < y)
 
     def __le__(self, obj) -> bool:
-        return comparer(self, obj, lambda x,y: x <= y)
+        return _event_comparer(self, obj, lambda x,y: x <= y)
     
     def __gt__(self, obj) -> bool:
-        return comparer(self, obj, lambda x,y: x > y)
+        return _event_comparer(self, obj, lambda x,y: x > y)
     
     def __ge__(self, obj) -> bool:
-        return comparer(self, obj, lambda x,y: x >= y)
+        return _event_comparer(self, obj, lambda x,y: x >= y)
     
     def __eq__(self, obj) -> bool:
-        return comparer(self, obj, lambda x,y: x == y)
+        return _event_comparer(self, obj, lambda x,y: x == y)
     
     def __ne__(self, obj) -> bool:
-        return comparer(self, obj, lambda x,y: x != y)
+        return _event_comparer(self, obj, lambda x,y: x != y)
         
-def comparer(event1: Event, event2, comparer):
+def _event_comparer(event1: Event, event2: Union[int, float, Event], comparer):
     if isinstance(event2, Event):
         return comparer(event1.timestamp, event2.timestamp)
     elif isinstance(event2, (int, float)):
@@ -45,7 +45,7 @@ class EventHandler:
     @visitor.on('event')
     def handle(self, event: Event):
         """
-        Apply visitor pattern to this method on every subclass 
+        Apply visitor pattern to this method on every subclass
         """
         pass
     

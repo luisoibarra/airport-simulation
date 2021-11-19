@@ -6,7 +6,7 @@
 
 ## Resumen
 
-Se presenta un problema de simulación a ser resuelto. Para resolverlo se creó un modelo básico abstracto sobre el cual se realizó la implementación concreta final. Se sacaron conclusiones de acuerdo a las simulaciones corridas y el objetivo del problema.
+Se presenta un problema de simulación a ser resuelto. Para resolverlo implementó la generación de variables aleatorias necesarias y un modelo básico abstracto de simulación sobre el cual se realizó la implementación concreta final. Se sacaron conclusiones de acuerdo a las simulaciones corridas y el objetivo del problema.
 
 ## Aeropuerto de Barajas
 
@@ -15,6 +15,16 @@ En el Aeropuerto de Barajas, se desea conocer cuánto tiempo se encuentran vacı
 ## Correr simulación
 
 Correr en consola `main.py`.
+
+## Variables aleatorias
+
+### Generación
+
+Para la generación de variables se usó el método de transformada inversa para construir las variables aleatorias uniforme (*U*) y exponencial (*Exp*). Para la generación de la variable normal (*Normal*) se usó la transformada de Box-Muller.
+
+### Interpretación
+
+En el ejercicio quieren generar variables exponenciales con λ = x. Esto se interpretó como que la frecuencia en que ocurren los sucesos en vez del valor del parámetro, entonces tomando minutos como unidad de medida, el valor final de λ sería 1/x ya que esto representa la frecuencia con que llegan los barcos en esta unidad de tiempo. La interpretación de las variables aleatorias normales y uniformes es directa.
 
 ## Ideas
 
